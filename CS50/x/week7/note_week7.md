@@ -160,3 +160,9 @@ db.execute("BEGIN TRANSACTION")
 db.execute("COMMIT")
 ```
 	- best to have the least possible line of code/tasks in TRANSACTION to avoid too-long downtime for others
+
+---
+# SQL prompts
+
+.schema
+to show table columns
