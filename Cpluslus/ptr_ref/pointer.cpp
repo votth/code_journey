@@ -2,8 +2,8 @@
 using namespace std;
 
 int main(void) {
-	int *int_ptr {};
-	int *dyn_ptr = new int {23};
+	int *int_ptr{};
+	int *dyn_ptr = new int{23};
 
 	int int_number = 68;
 	int_ptr = &int_number;

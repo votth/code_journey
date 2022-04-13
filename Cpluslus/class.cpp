@@ -29,7 +29,6 @@ class Cylinder {
 		void set_height(double height_param) {
 			height = height_param;
 		}
-
 		// Other methods
 		double volume() {
 			return pi * base_radius * base_radius * height;

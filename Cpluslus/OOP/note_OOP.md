@@ -37,3 +37,19 @@
 - Usage:
 	- scaleable?
 	- reusability
+
+# Abstract vs Concrete classes
+# Super abstract class
+https://www.geeksforgeeks.org/difference-between-abstract-class-and-concrete-class-in-java/
+
+# Liskov substitution principle
+https://en.wikipedia.org/wiki/Liskov_substitution_principle
+
+# Design pattern
+
+# Dependency injection
+https://en.wikipedia.org/wiki/Dependency_injection
+- A technique in which an object receives other objects that it depends on, called dependencies.
+- The receiving is called *client* while the passed-in/injected objects are *service*s.
+
+# User diagram

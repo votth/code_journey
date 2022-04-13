@@ -2,21 +2,18 @@
 ``` cpp
 #include <iostream>
 using namespace std;
-
 // This is a comment
-
 int main(void) {
 
 	/*	Block comment
 		Send signal indicating end of program
 		0 means no error
-
 		!! no nested comment
 	*/
 	return 0;
-
 }
 ```
+
 
 # Errors and Warnings
 ## Compile Time Errors
@@ -28,11 +25,14 @@ int main(void) {
 - The compiler won't freak out or crash won't happen in Runtime since it's not serious enough.
 - Example: divide by 0
 
+
 # Statements and Functions
+
 ## Statements
 - Statements is a basic unit of computation in C++.
 - A C++ program is a collect of statements organized in a certain order, executed from top to bottom to achieve a certain task.
 - Statements in C++ end with semicolon (;).
+
 ## Functions
 - Give it inputs and receive outputs.
 - Must be defined before used. Reusability
@@ -76,7 +76,7 @@ std::clog // prints log message to the terminal
 std::getline(std::cin, {variable}); // in case user input 'space'
 ```
 
-# \#include \<string\>
+## \#include \<string\>
 ``` cpp
 #include <string>
 
@@ -90,6 +90,35 @@ std::cin >> name >> age;
 ```
 
 # Execution and Memory models
+
+## Memory model:
+### Definition
+- an abstraction or description detailing how threads interact with computer memory and shared data
+- multi-threaded execution requries the computer language to specify a memory model
+	- by definition: at any given time, active threads may see different values for the shared data. This is normal, since requires all threads to always be perfectly insync is costly and hindrences performance. Therefore, when writing a multi-threaded program, the developers have to decide when the inconsistency is acceptable and when it is not.
+	- without a memory model, programmers, third party threading libraries, complier, and the hardware are at odds with the complier optimization and hardware optimizations
+- Memory model ensures that the devs can write code with shared data to be insynced when it's required.
+### Components of a Memory Model
+- the program that the developer wrote
+- the code that the complier generated, which is executed by the hardware
+- the memory operation that the CPU performs while it's executing the code
+### Reordering
+- Eventhough statements are left in a certain order, the complier and computer might decide to which reordering would yield a better result in performance, efficiency.
+- The memory model places restrictions on these reorderings, so the devs can reason through the likely behaviours of a multi-threaded program.
+
+- Model must define which reorderings are permitted.
+- Provides a minimal guarantee about when the memory is accesed.
+- Defines when mulitple threads may access the same memory, or specifies when assignments by one thread can be seen in a concurrently executing thread.
+
+- !! *data race*: when 2 conflicting operations can be executed simultaneously.
+### C++ multi-thread model
+- C++11 memory model is part of the core language.
+- std::thread is part of the standard library.
+
+## C++11
+- It is not possible to effevtively utilize additional processor cores without writing a mulit-threaded program.
+- C++11 added a memory model, threading, atomics and mutexes.
+
 
 # C++ core language vs Standard library vs STL
 - C++ standard consists of 2 parts: core language and the standard library. The standard library changes on every major implementation of C++ (C++11 C++14, every 3 years)
@@ -122,14 +151,13 @@ std::cin >> name >> age;
 // to include a standard header
 ```
 
+
 # Number Systems
 - base 2: 0 and 1 - 0010 0111
 - base 10: 0 to 9 - 1998
 - base 16 (hexadecimal): 0 to 9 and A to F - 0x7FB5
 - Octal system (base 8): 0 to 7
-
 - All data is essentially 0 and 1 in memory.
-
 ``` cpp
 int decimal = 15;
 int octal = 017;
@@ -137,14 +165,13 @@ int hexa = 0x0F;
 int binary = 0b00001111; // !! from C++14
 ```
 
+
 # Variables and Data Types
 ``` cpp
 // braces initialization
 typename variable_name {initialize_value};
-
 // expression initialization
 int sum {a + b};
-
 // functional initialization
 // might not be as useful as braces, example
 int some_int {2.9};
@@ -160,6 +187,7 @@ int varible = 5;
 	- starting with letters
 	- words are separated by underscore (\_)
 	- case-sensitive
+
 ## int (Integers)
 - 4 bytes
 - Some common data types: int, double, float, char, bool, void, auto...
@@ -169,7 +197,9 @@ int varible = 5;
 	- short int 2 bytes
 	- long int 4 or 8 bytes
 	- long long int 8 byes
+
 ## unsigned (Positive) and signed (Negative)
+
 ## float, double, long double (Fractional number)
 - Bytes and precision
 	- float 4 7
@@ -178,16 +208,13 @@ int varible = 5;
 - Differ from int: divide by 0
 	- floating_point / 0 : infinity +-
 	- 0.0 / 0.0 : NaN - not a number
-
 ``` cpp
 // Fixed notation
 float number1 = 1.456845686f; // f to specify it as float
 double number2 = 1.456878948;// default is double
 long double number3 = 1.45678498L; // to specify as long
-
 // Scientific notation
 float number4 = 1.4565e5;
-
 // Infinity and NaN
 // float / 0
 // 0.0 / 0.0
@@ -199,11 +226,13 @@ float number4 = 1.4565e5;
 
 std::cout << std::setprecision(20); // control the precision of cout
 ```
+
 ## bool (True or False)
 ``` cpp
 std::cout << std::boolalpha; // forces the output format to true/false
 ```
 - Using bool can be considered as wasteful, especially when memory is limited (eg. embedded system). Since bool takes 1 byte of memory but uses/stores true or false
+
 ## char (Characters) or string (Text)
 ### char
 - ASCII table:
@@ -229,7 +258,6 @@ auto var2 {13.0};
 auto var3 {14.0f};
 auto var4 {15.0l};
 auto var5 {'e'};
-
 // int modifier suffixes
 auto var6 { 123u}; // unsigned
 auto var7 { 123ul}; // unsigned long
@@ -239,25 +267,27 @@ auto var8 { 123ll}; // long long
 ## Assignments
 ``` cpp
 double var {44.55}; // Declare and Initialize
-
 var2 = 99.88; // Assign new value
 ```
 - !! Be very careful when assigning value to auto declared type since there WON'T be a warnings error.
 
 ---------------------------------
 **Operations on Data**
-
 - Formatting
 - Built-in utilities
-## Mathematical operators
+
+# Precedence and Associativity
+- which operation to do first and in which direction or order
+- [Operator precedence](https://en.cppreference.com/w/cpp/language/operator_precedence)
+- You should use parenthesises () to make your code clear and readable.
+
+
+# Mathematical operators
 - !! integers division
 	- add, subtract, divide, multiply
 	- increment, decrement
 	- modulus
-## Precedence and Associativity
-- which operation to do first and in which direction or order
-- [Operator precedence](https://en.cppreference.com/w/cpp/language/operator_precedence)
-- You should use parenthesises () to make your code clear and readable.
+
 ## Increment and Decrement
 - Pre- and postfix inc/decrement are only for + and - operation.
 - It's possible to increment by 5 but not with ++, ++ is only for +1.
@@ -274,13 +304,42 @@ std::cout << "The value is now: " << ++value << endl; // 7
 // so the ++value will be executed before the std::cout cmd
 // while with postfix, the std::cout will be executed first
 ```
+
 ## Relational operators
 - !! Careful when using with << >> since those have higher precedence compare to the below operators. Use ().
 - > < >= <= == !=
 - std::boolalpha and std::noboolalpha
+
 ## Logical operators
 - Using with true or false.
 - && and, || or, ! not
+
+## \#include \<limits\>
+- numeric_limits\<type\>::min()
+- numeric_limits\<type\>::max()
+- numeric_limits\<type\>::lowest()
+
+## Math Functions
+- \#include \<cmath\>
+- floor(), ceil(), log() (default as base *e*), sqrt(), round() etc.
+
+
+# Weird Integral Types
+- Integral types less than 4 bytes in size don't support arithmetic operations.
+- Bitwise shift operators: >> and <<
+``` cpp
+// 2 bytes in size
+short int var1 {10};
+short int var2 {20};
+// 1 bytes in size
+char var3 {40};
+char var4 {50};
+// These become 4 bytes in size
+auto result1 = var1 + var2;
+auto result2 = var3 + var4;
+// use sizeof(variable) to check
+```
+
 
 # Output formatting
 - \<ios\> and \<iomanip\>
@@ -300,34 +359,6 @@ std::cout << "The value is now: " << ++value << endl; // 7
 	- std::setprecision: to decide how many number will be shown after the comma (,)
 	- std::showpoint: to show numbers after the decimal, and wil force-show trailing 0s
 
-# \#include \<limits\>
-- numeric_limits\<type\>::min()
-- numeric_limits\<type\>::max()
-- numeric_limits\<type\>::lowest()
-
-# Math Functions
-- \#include \<cmath\>
-- floor(), ceil(), log() (default as base *e*), sqrt(), round() etc.
-
-# Weird Integral Types
-- Integral types less than 4 bytes in size don't support arithmetic operations.
-- Bitwise shift operators: >> and <<
-
-``` cpp
-// 2 bytes in size
-short int var1 {10};
-short int var2 {20};
-// 1 bytes in size
-char var3 {40};
-char var4 {50};
-
-// These become 4 bytes in size
-auto result1 = var1 + var2;
-auto result2 = var3 + var4;
-
-// use sizeof(variable) to check
-```
-
 **End of "Operations on Data"**
 ----------------------------------------
 **Flow Control: Conditional Programing**
@@ -337,18 +368,23 @@ auto result2 = var3 + var4;
 - switch
 - ternary operator
 
-# if ans else clauses
+
+# if and else clauses
 ``` cpp
 if (condition) {
 	// code_block to execute if true
 } else {
 	// code_block to execute if false
 }
-
 /*
 if ...
 else if (sub_condition) {}
 */
+```
+
+# ternary
+``` cpp
+result = (condition) ? true : false ;
 ```
 
 # switch
@@ -356,7 +392,6 @@ else if (sub_condition) {}
 - `break;` to stop checking for another condition when already found.
 ``` cpp
 switch (variable) {
-
 	case value1: {
 		// code_block
 	}
@@ -379,13 +414,10 @@ switch (variable) {
 }
 ```
 
-# ternary
-``` cpp
-result = (condition) ? true : false ;
-```
 **End of "Flow Control: Conditional Programming"**
 --------------------------------------------------
 **Loops**
+
 ``` cpp
 for (int i = start_point; i < end_point; i++) {
 	// code_block
@@ -398,7 +430,6 @@ do {
 	// code_block
 } while (condition);
 ```
-
 - size_t: not a type, just a type alias for some unsigned int representation
 - !! Hard coded values are bad, eg. use loop_time variable instead of "10"
 
@@ -410,7 +441,11 @@ do {
 # Declaring and Using
 `type variable_name[size]`
 - Indexing starts from 0 to 'size-1'
+# Size of an array: std::size(arr)
+- size is fixed
+# Bound of an array
 - !! "Out of bounds" error
+
 
 # Write data from arrays
 ``` cpp
@@ -421,14 +456,13 @@ for (int value : arr) {
 }
 ```
 
-# Size of an array: std::size(arr)
+
 # Array of characters - Strings
 - Null termination: \0
 	- add it in yourselves within the arr's bound
 	- or have arr's bound +1 empty space so the complier knows to add itself the \0
 	- using with msg[] will also result in gabage values
 	``` cpp
-
 	char msg1[] = {'H', 'e', 'l', 'l', 'o'}; // not a C string
 	char msg2[] = {"Hello"}; // is a C string
 
@@ -443,7 +477,6 @@ for (int value : arr) {
 	cout << "Message 2 printing\n";
 	cout << msg2 << endl;
 	```
-# Bound of an array
 
 **End of "Arrays"**
 -----------------
@@ -458,6 +491,7 @@ int int_var {42};
 p_number = &int_var;
 ```
 
+
 # Pointer to char
 ``` cpp
 char my_char = 'A';
@@ -470,22 +504,22 @@ char my_msg = "Hello world!";
 char *p_msg = "Hello world!";
 ```
 
+
 # Program memory map
 - Real memory (RAM) VS Virtual memory
 - Virtual memory: A trick that fools your program into thinking that it is the only program running on the OS, and all the memory resources belong to it.
 	- Each program is abstracted into a program process, and each process has access to the memory ranging from 0~(2^N)-1 where N is 32 or 64 depends on the OS bit systems.
 	- The entire program is not loaded into the real memory, but only parts of it (processes) that are to be executed will be loaded. Making effective use of RAM.
-
 - Memory map levels: system > stack > heap > data > text
 	- stack: stores local variables, function calls etc.
 	- heap: additional memory that can be queried at runtime
+
 
 # Dynamic memory allocation
 - !! writing into junk addresses is bad
 ``` cpp
 int *p_number; // was not initialized
 *p_number = 55;
-
 int *p_numberOther {}; //initialized but pointing to nothing - nullptr
 ```
 - Heap:
@@ -499,17 +533,18 @@ int *p_number {nullptr};
 p_number = new int;	// dynamically allocate space for a single int on the heap
 					// other programs can't use this until releaseed
 *p_number = 77;		// writing to the allocated memory space
-
 delete p_number;	// release/return the memory
 p_number = nullptr;	// reset the pointer
 ```
 - !! Do not called *delete* twice to the same pointer
+
 
 # Dangling pointers
 - Pointers that don't point to valid memory address:
 	- uninitialized pointer
 	- deleted pointer
 	- multiple pointers point to the same location
+
 
 # When 'new' fails
 - very rare case, but always good to know how to interact when it happens
@@ -518,8 +553,8 @@ p_number = nullptr;	// reset the pointer
 ``` cpp
 try {
 	int *lots_of_ints {new int[10000000000000]};
-} catch (std::exception& ex) {
-	std::cout << "Exception message: " << exp.what() << std::endl;
+} catch (std::exception &ex) {
+	std::cout << "Exception message: " << ex.what() << std::endl;
 }
 ```
 	- std::nothrow setting
@@ -530,6 +565,7 @@ if (lots_of_ints == nullptr) {
 	return 1;
 }
 ```
+
 
 # nullptr safety
 - Making sure you are working with pointers containing valid addresses.
@@ -552,22 +588,25 @@ nullptr;
 return 0;
 ```
 
+
 # Memory leaks
 - Lost access to allocated memory.
 - When there's no pointer pointing to a `new`ed memory.
 
+
 # Dynamic arrays
 ``` cpp
 size_t size{10};
-double *p { new double[size]{} };
-
+double *p{new double[size]{}};
 delete[] p;
 p = nullptr;
 ```
-- Pointer arrays don't work with std:size().
+- Pointer arrays don't work with std::size().
 - Nor do they work with "range based for loop"
 
+
 # References
+
 ## Declaring and Using
 - Changes will happen to both the original and the ref.
 - Address is the same as the original.
@@ -575,7 +614,6 @@ p = nullptr;
 ``` cpp
 int int_value1 {46};
 int &ref_int1 = int_value1;
-
 cout << "Value of the ref: " << ref_int1 << endl;
 cout << "Address of the ref: " << &ref_int1 << endl;
 ```
@@ -588,7 +626,7 @@ cout << "Address of the ref: " << &ref_int1 << endl;
 - Ptr:
 	- must use dereferencing *
 	- can point to other memory addresses
-	- can be declared un-initialized (contain gabages)
+	- can be declared un-initialized (contain garbages)
 
 ## Refs and const
 - Avoid modifying the refs: `const int &ref{original};`
@@ -607,6 +645,8 @@ cout << "Address of the ref: " << &ref_int1 << endl;
 	- isblank
 	- isupper / islower
 	- toupper / tolower
+
+
 # C-string manipulation
 - header: \<cstring\>
 - common functions:
@@ -614,9 +654,11 @@ cout << "Address of the ref: " << &ref_int1 << endl;
 	- strcmp / strncmp: compare the whole string and part of strings
 	- strchr: find first occurence / left-right direction
 	- strrchr: find last occurence / right-left direction
+
 ## Concatenation and Copying
 - Join strings and Copying
 - strcat / strncat(des, src, pos) and strcpy(des, src) / strncpy
+
 ## std::string
 - header: \<string\>
 ``` cpp
@@ -638,14 +680,12 @@ int main(void) {
 **End of "Character and string manipulation**
 ---------------------------------------------
 **Functions**
-
 - Reusable piece of code
 ``` cpp
 return_type function_name (param 1, param 2, ...) {
 	// code_block
 	return retur_type;
 }
-
 int main(void) {
 	// calling a function
 	function_name();
@@ -653,6 +693,7 @@ int main(void) {
 	return_type = function_name();
 }
 ```
+
 - Implicit conversions in functions: double - int
 - Argument scopes: copies of param
 - Declaration is to be put before `int main(void){}`
@@ -663,11 +704,8 @@ int larger(int a, int b);
 
 int main(void) {
 	int a, b;
-
 	// input a and b
-
 	int larger_int = larger(a, b);
-
 	return 0;
 }
 // Definition
@@ -675,17 +713,19 @@ int larger(int a, int b) {
 	return a > b ? a : b;
 }
 ```
-## Pass by value: int age
-## Pass by pointer: int \*age
-## Pass by reference: int &age
 
-## Input and Output parameters
+# Types of pass by
+- by value: function(int age){}
+- by ptr: function(int \*age){}
+- by ref: funciton(int &age){}
+# Input and Output parameters
 - Output param should be use with either ptr or ref, so we can write changes to the original.
 - Use with `void function_name(){}`
-## Returning from functions
+# Returning from functions
 - Alternative way of the above.
 - Complier optimization: return by ref > return by value, to avoid having copies of variables. Usually happen with *string*, all in all this action by the complier is to reduce memory usage.
 - !! Aware of return by ref yourselves
+
 
 # Function overloading
 - 1 function (same name) that have multiple return_type
@@ -698,8 +738,11 @@ int larger(int a, int b);
 double larger(double a, double b);
 ```
 
+
 # Lambda function
-- A mechanism to set up anonymous function (no name). Once we have them set up, we can either give them name and call them, or just use them directly even without name.
+- A mechanism to set up anonymous function (no name).
+- Once we have them set up, we can either give them name and call them, or just use them directly even without name.
+
 ## Declaring and Using
 ``` cpp
 /* return_type is optional
@@ -707,17 +750,16 @@ double larger(double a, double b);
 	// code_block
 };
 */
-
 auto func = []() {
 	cout << "Hello world\n";
 };
 func();
-
 // call lambda directly without name
 [](param) {
 	// code_block
 }(I/O);
 ```
+
 ## Capture list
 - Take copies of the outside, already declared variables
 - Take by reference &
@@ -728,7 +770,6 @@ func();
 **End temporary on "Lambda function"**
 --------------------------------------
 **Function template**
-
 - Considered as function blueprints, not actual C code but rather the code will be generated when needed by complier.
 - To see the complier in action: [C++ Insights](https://cppinsights.io)
 - For code repetition: function overloads
@@ -740,11 +781,8 @@ func();
 		return (a > b)? a : b;
 	}
 */
-
 template <typename T> T larger(T a, T b);
-
 int main(void) {}
-
 template <typename T> T larger(T a, T b) {
 	return (a > b)? a : b;
 }
@@ -752,9 +790,6 @@ template <typename T> T larger(T a, T b) {
 - !! All `T` need to be the same type.
 - Careful when use with pointers
 
-# Template type deduction an explicit arguments
-- Deduction: complier will determine which type of T should it use
-- Explicit: the dev forces/tells the template beforehand using `larger<type>(params);`
 
 # Template type parameters by ref
 - So far, we were using *param by value*
@@ -769,6 +804,10 @@ template <typename T> T larger(T a, T b);
 template <typename T> const T& larger(T& a, T& b);
 ```
 
+# Template type deduction and explicit arguments
+- Deduction: complier will determine which type of T should it use
+- Explicit: the dev forces/tells the template beforehand using `larger<type>(params);`
+
 # Template specialization
 - Override template when params fit in special cases
 ``` cpp
@@ -779,6 +818,7 @@ template <typename T> T maximum(T a, T b);
 template <>
 const char *maximum<const char *> (const char *a, const char *b);
 ```
+
 
 # Concepts
 - [C++20 feature](https://en.cppreference.com/w/cpp/concepts): using concept `#include <concepts>`
@@ -791,12 +831,14 @@ void print_number(T n) {
 	cout << "n: " << n << endl;
 }
 ```
+
 ## Syntax and uses
 - There are standard built-in and custom concepts, some core language concepts:
 	- same_as
 	- derived_from
 	- integral
 	- etc.
+
 ``` cpp
 // Using concept
 template <typename T>
@@ -825,6 +867,7 @@ T add (T a, T b) requires std::integral<T> {
 	return a + b;
 }
 ```
+
 ## Custom concepts
 ``` cpp
 /*
@@ -845,7 +888,8 @@ concept incrementable = requires (T a) {
 };
 ```
 - After defining your cutoms concepts, you can use is similar to the standard ones, eg `template <MyConcept T> T add (T a, T b){}`
-## requires clause
+
+## Requires clause
 - Four kind of requirements:
 	- simple
 	- nested
@@ -870,6 +914,7 @@ concept addable = requires (T a, T b) {
 	// checkes if a+b is valid syntax, doesn't throw exception (optional), and the result is convertible to int (optional)?
 };
 ```
+
 ## Logical combination of concepts
 - && and || or
 ``` cpp
@@ -910,6 +955,7 @@ T add (T a, T b) {
 	- objects can be ptr but CAN'T be ref
 	- functions are called methods, and can access object regardless of them being public or private
 	- private members can't be accessed outside of class
+
 # General
 - 'public' means member of its can be accessed from outside of its class.
 ``` cpp
@@ -931,11 +977,12 @@ int main(void) {
 	Cylinder cylinder1;
 	cylinder1.base_radius = 3.0;
 	cylinder1.hegiht = 2;
-
 	cout << "The volume of the clynder1: " << cylinder1.volume() << endl;
-
 	return 0;
+}
 ```
+
+
 # Constructor
 - Special method, that is called when an instance of class is created:
 	- no return type
@@ -958,15 +1005,15 @@ class Cylinder {
 			return pi * base_rad * base_rad * height;
 		}
 };
-
 int main(void) {
 	Cylinder cylinder1(10, 4);	// create class cylinder1 with base_rad of 10 and height of 4
-
 	return 0;
 }
 ```
+
 ## Default constructor
 - `Cylinder cylinder2()` will fail without `Cylinder() = default` which is the default constructor.
+
 
 # Setter and Gette
 - Methods to read or modify member variables of class.
@@ -996,6 +1043,7 @@ class Cylinder {
 };
 ```
 
+
 # Class across multiple files
 - For the cylinder example, file structure can be:
 	- main.cpp: using pi and cylinder from other files
@@ -1013,12 +1061,12 @@ class Cylinder {
 #endif
 ```
 
+
 # Managing class objects through pointers
 ``` cpp
 #include <iostream>
 #include "constants.h"
 #include "cylinder.h"
-
 int main(void) {
 	// Stack object: . notation
 	Cylinder c1(10, 2);
@@ -1028,10 +1076,10 @@ int main(void) {
 	std::cout << "Volume c2: " << (*c2).volume() << std::endl;
 	std::cout << "Volume c2: " << c2->volume() << std::endl;
 	delete c2;
-
 	return 0;
 }
 ```
+
 
 # Destructor
 - Special method that is called when an object is terminated. They are needed when there's a need to release dyn. memory or some kind fo clean up.
@@ -1041,8 +1089,10 @@ int main(void) {
 	- local stack object goes out of scope
 	- heap object is released with *delete*
 
+
 # Constructor and Destructor call order
 - If declared by `Class class_name` then by stack order: last in first out.
+
 
 # The *this* pointer
 - Each class member function contains a hidden pointer, called *this*
@@ -1097,11 +1147,13 @@ Dog &set_age(const std::string &dog_age) {
 p_dog1->set_name("Mario").set_breed("Terrier").set_age(5);
 ```
 
+
 # Struct
 - Members are public by default, otherwise it's same as *class*.
 - Common use:
 	- struct Point {};
 	- struct Node {};
+
 
 # Size of class objects: total size of member variables
 - Though that definition isn't always correct, cause of *boundary alignment*: since memory spaces that store member varibles might have gaps between them, hence size of class might result in taking more memory than plain sum of variables' sizes.

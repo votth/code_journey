@@ -17,6 +17,5 @@ TinyType auto add(TinyType auto a, TinyType auto b) {
 int main(void) {
 	double x{67};
 	double y{456};
-
 	add(x, y); // this will not throw complier-error
 }
