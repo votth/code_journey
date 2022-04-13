@@ -1170,6 +1170,7 @@ p_dog1->set_name("Mario").set_breed("Terrier").set_age(5);
 - Build types on top of other types
 - Hierarchies set up to your needs
 - Code reuse is improved
+- *friend* keyword: allowed usage of private members and private
 
 ``` cpp
 class Person {
@@ -1480,6 +1481,7 @@ delete animal;
 // without virtual ~Animal(); and virtual ~Feline(); and virtual ~Dog(); the delete arg will lead to memory leak
 ```
 
+# static_cast<>
 # Dynamic_cast<>()
 - downstream transformation between polymorphic obj
 - Uses:
