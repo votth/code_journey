@@ -1,1 +1,4 @@
-./CS50/x/resources/webNotes/*
+CS50/x/resources/webNotes/
+
+*.log
+*.o
