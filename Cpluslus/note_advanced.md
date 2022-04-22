@@ -69,9 +69,14 @@ const char *maximum<const char *>(const char *a, const char *b) {};
 	- public: can be accessed from anywhere
 
 - Constructor and Destructor
-	- Special methods, Cons is called when an object of the class is created, while Des is called when that instance of the object is terminated.
+	- Special methods, Cons is called when an object of the class is created, while Des is called when the lifetime of an object ends.
 		- Cons helps with initializing the objects' members.
-		- Des helps with dealing with freeing ptr.
+		- Des helps with freeing the resources that the object may have accquired during its lifetime, eg ptr.
+			- program termination
+			- thread exit
+			- end of scope, for objs with automatic storage duration and for temporaries whose life was extended by binding to a reference
+			- *delete* expression: `delete node;`
+			- delete-expression, for obj with dynamic storage
 	- Some characteristics only to them:
 		- no return type
 		- same name as the class
@@ -79,23 +84,28 @@ const char *maximum<const char *>(const char *a, const char *b) {};
 	- Declaration
 
 ``` cpp
-class node {
+class Node {
 	private:
-		int data;
-		node *next_ptr;
+		int m_data;
+		node *m_next_ptr;
 	public:
 		// Constructors
 		node();
-		node(int data, node *next_ptr) {
-			this.data = data;
-			this.next_ptr = next_ptr;
+		node(int t_data, node *t_next_ptr) {
+			this.m_data = t_data;
+			this.m_next_ptr = t_next_ptr;
 		}
 		// Destructor
 		// {} can be left empty to be default Des
 		~node() {
-			std::cout << "Free node" << node << std::endl;
-			free(node);
+			std::cout << "Free node" << this << std::endl;
+			free(this);
 		}
+}
+int main() {
+	Node new_node = new node(1, nullptr);
+	delete new_node;
+	return 0;
 }
 ```
 
@@ -109,7 +119,7 @@ class node {
 
 - Class across multiple files
 	- Creating 2 new files for a class, for example, with Employee
-		- employee.h: contains declaration of the class, usually come with header guard, to avoid duplication
+		- employee.h: contains definition/prototype of the class, usually come with header guard, to avoid duplication
 ``` cpp
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H

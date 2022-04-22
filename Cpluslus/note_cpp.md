@@ -40,27 +40,23 @@ int main(void) {
 ``` cpp
 #include <iostream>
 using namespace std;
-
 int sum_int(int a, int b);
-
 int main(void) {
 	int a, b;
-
 	cout << "a: ";
 	cin >> a;
 	cout << "b: ";
 	cin >> b;
 	cout << "Sum: %i\n\n" << sum_int(a, b);
-
+	//
 	cout << "New a: ";
 	cin >> a;
 	cout << "New b: ";
 	cin >> b;
 	cout << "Sum: %i\n\n" << sum_int(a, b);
-
+	//
 	return 0;
 }
-
 int sum_int(int a, int b)
 {
 	return a + b;
@@ -79,13 +75,10 @@ std::getline(std::cin, {variable}); // in case user input 'space'
 ## \#include \<string\>
 ``` cpp
 #include <string>
-
 std::string name;
 int age;
-
 // std::cin >> name;
 // std::cin >> age;
-
 std::cin >> name >> age;
 ```
 
@@ -111,6 +104,7 @@ std::cin >> name >> age;
 - Defines when mulitple threads may access the same memory, or specifies when assignments by one thread can be seen in a concurrently executing thread.
 
 - !! *data race*: when 2 conflicting operations can be executed simultaneously.
+- Deadlock and Race condition
 ### C++ multi-thread model
 - C++11 memory model is part of the core language.
 - std::thread is part of the standard library.
