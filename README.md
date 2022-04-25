@@ -11,6 +11,18 @@
 		- week{}/ notes
 - Languages:
 	- Cpp/
+		- basic/
+		- OOP/
+			- class
+			- encapsulation
+			- abstract
+			- inheritance
+			- polymorphism
+		- data_structure/
+		- ptr_ref/
+		- template_concepts/
+		- multi_files/
+		- threading/
 	- Python/
 		- introduction/
 		- scripting/
