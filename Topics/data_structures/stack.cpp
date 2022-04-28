@@ -14,11 +14,8 @@ struct Stack {
 
 	Stack() { head = nullptr; }
 	~Stack() {
-		Node *tmp = head;
-		while (tmp != nullptr) {
-			tmp = head->next;
-			delete(head);
-			head = tmp;
+		while (head != nullptr) {
+			pop();
 		}
 		std::cout << "\nCleared stack\n";
 	}

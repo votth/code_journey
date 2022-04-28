@@ -9,7 +9,6 @@ int main(void)
 	int target = 9;
 
 	int found_index = search(nums, numsSize, target);
-
 	if  (found_index == -1)
 	{
 		printf("Not found\n");
@@ -25,7 +24,6 @@ int main(void)
 int search(int* nums, int numsSize, int target)
 {
 	int pivot, left = 0, right = numsSize - 1;
-
 	while (left <= right)
 	{
 		pivot = left + (right - left) / 2;
@@ -33,6 +31,5 @@ int search(int* nums, int numsSize, int target)
 		if (target < nums[pivot]) right = pivot - 1;
 		else left = pivot + 1;
 	}
-
 	return -1;
 }

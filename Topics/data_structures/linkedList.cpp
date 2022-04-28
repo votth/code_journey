@@ -13,12 +13,19 @@ struct Node {
 		}
 };
 
+// Create
 void createLink(Node *t_head);
+// Print
 void printLink(Node *t_head);
+void reversePrint(Node *curr);
+// Insert
 void insertNode(Node *t_head, Node *t_newNode);
 void pushData(Node *t_head, int t_data);
+// Remove
 void removeNode(Node *t_head, int t_rmIndex);
+// Reverse
 void reverseLink(Node **t_head);
+// Empty
 void emptyLink(Node *t_head);
 
 int main(void) {
@@ -41,6 +48,9 @@ int main(void) {
 	std::cout << "\nReversed link: \n";
 	reverseLink(&head);
 	printLink(head);
+
+	std::cout << "\nReverse print:\n";
+	reversePrint(head);
 
 	emptyLink(head);
 	return 0;
@@ -130,4 +140,12 @@ void reverseLink(Node **t_head) {
 		curNode = nexNode;
 	}
 	*t_head =  preNode;
+}
+
+void reversePrint(Node *curr) {
+	if (curr->next != nullptr) {
+		reversePrint(curr->next);
+	}
+	std::cout << curr->data << " ";
+	return;
 }

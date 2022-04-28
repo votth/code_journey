@@ -23,13 +23,13 @@ struct Queue {
 		std::cout << "\nCleared queue\n";
 	}
 
-	void push(int data) {
+	void enQueue(int data) {
 		Node *newNode = new Node(data);
 		newNode->next = head;
 		head = newNode;
 	}
 
-	void pop() {
+	void deQueue() {
 		Node *tmp = head;
 		while (tmp->next->next != nullptr) {
 			tmp = tmp->next;
@@ -52,14 +52,14 @@ struct Queue {
 int main(void) {
 	Queue q1;
 
-	std::cout << "Pushing 1 2 3\n";
-	q1.push(1);
-	q1.push(2);
-	q1.push(3);
+	std::cout << "Enqueuing 1 2 3\n";
+	q1.enQueue(1);
+	q1.enQueue(2);
+	q1.enQueue(3);
 	q1.print();
 
-	std::cout << "\nPoping once\n";
-	q1.pop();
+	std::cout << "\nDequeuing once\n";
+	q1.deQueue();
 	q1.print();
 
 	return 0;
