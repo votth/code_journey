@@ -1,8 +1,11 @@
 # echo/ cat
 
+
 # File redirecting
-- > >>
-- 1> 2> : stdout and stderr
+`>` `>>`	override and append
+
+`1>` `2>`	stdout and stderr
+
 
 # if else fi
 ``` bash
@@ -32,6 +35,7 @@ else
 fi
 ```
 
+
 # case
 ``` bash
 #! /bin/bash
@@ -48,6 +52,7 @@ case $car in
 esac
 ```
 
+
 # while
 ``` bash
 #! /bin/bash
@@ -60,6 +65,7 @@ do
 done
 ```
 
+
 # for
 ``` bash
 #! /bin/bash
@@ -70,19 +76,25 @@ do
 	echo $i
 done
 ```
-- `break` and `continue`
+`break` and `continue`
+
 
 # Terminal arguments
-- $0 is the program name
-- $1 $2 $3 is follow
-- $@ is the argv
-- $# is the argc
+`$0`	is the program name
+
+`$1` `$2` `$3` is corresponding arg
+
+`$@`	is the argv
+
+`$#`	is the argc
+
 ``` bash
 #! /bin/bash
 args=("#@")
 echo ${args[0]} ${args[1]} ${args[2]}
 echo $@
 ```
+
 
 # Read line
 ``` bash
@@ -95,13 +107,17 @@ done < "${1:-/dev/stdin}"
 ```
 
 ## STDIN /dev/stdin
+
 ## STDOUT and STDERR
-- 1> and 2>
-- >& output both stdout and stderr
+`1>` and `2>`
+
+`>&` output both stdout and stderr
+
 ``` bash
 #! /bin/bash
 ls -al 1> file1.txt 2> file2.txt
 ```
+
 
 # Pipes, script to another script
 ``` bash
@@ -110,10 +126,12 @@ MESSAGE="Hello from script1"
 export MESSAGE
 ./script2.sh
 ```
+
 ``` bash
 #! /bin/bash
 echo "The message from the other script is: $MESSAGE"
 ```
+
 
 # String
 ``` bash
@@ -133,9 +151,10 @@ c=$str1$str2
 echo ${str1^} "and" ${str2^^}
 echo ${str1^l} "uppercase a specific letter"
 ```
-- equal:   ==
-- shorter: \\<
-- longer:  \\>
+
+equal:		`==`  
+shorter:	`<`  
+longer:		`>`  
 
 
 # Numbers and Arithmetic
@@ -148,6 +167,7 @@ echo $(( n1 + n2 )) # - * / %
 echo $(expr $n1 + $n2 ) # - \* / %
 ```
 
+
 # Hex
 ``` bash
 #! /bin/bash
@@ -156,6 +176,7 @@ read hex
 echo -n "The decimal value of $hex is: "
 echo "obase=10; ibase=16; $hex" | bc
 ```
+
 
 # Declare variable
 ``` bash
@@ -167,6 +188,7 @@ declare -r pwdFile=/etc/passwd
 echo $pwdFile
 ```
 
+
 # Arrays
 ``` bash
 #! /bin/bash
@@ -177,6 +199,7 @@ echo "${car[@]}"
 echo "${!car[@]}" # showing index
 echo "${#car[@]}" # array length
 ```
+
 
 # Function
 ``` bash
@@ -196,6 +219,7 @@ iLove
 # returning is now Linux
 echo $returning
 ```
+
 
 # Files and Dirs
 ``` bash
@@ -235,9 +259,10 @@ else
 fi
 ```
 
+
 # Sending email
 - google account: "Less secure app access: on"
-- install smtp
+- install smtp: `sudo pacman -S smtp`
 - `sudo -e /etc/ssmtp/ssmtp.conf`
 ``` bash
 root={emailAddress}@gmail.com
@@ -246,12 +271,14 @@ AuthUser={emailAddress}@gmail.com
 AuthPass={passwd}
 UseSTARTLS=yes
 ```
-- from your script
+
+From your script
 ``` bash
 #! /bin/bash
 ssmtp {emailAddress}@gmail.com
 ```
-- within the terminal
+
+Within the terminal
 ```
 To: email
 From: email
@@ -259,7 +286,9 @@ Cc: someone else
 Subject: TEST
 This is body
 ```
-- Ctrl+D
+
+To exit: ctrl+d
+
 
 # curl
 ``` bash
@@ -273,6 +302,7 @@ curl ${url} > toFile
 # check header
 curl -I ${url}
 ```
+
 
 # Professional menus
 ``` bash
@@ -292,7 +322,6 @@ do
 done
 ```
 
-#
 ``` bash
 #! /bin/bash
 echo "Press any key to continue..."
@@ -308,7 +337,9 @@ do
 done
 ```
 
+
 # Wait for filesystem events with `man inotify`
+
 
 # grep
 ``` bash
@@ -325,11 +356,13 @@ else
 fi
 ```
 
+
 # awk
-- scan file
-- split line into views/column
-- aciton on mashed line
-- transform datafile, report
+scan file  
+split line into views/column  
+aciton on mashed line  
+transform datafile, report  
+
 ``` bash
 #! /bin/bash
 echo "File to awk"
@@ -342,6 +375,7 @@ else
 	echo "$file doesn't exist"
 fi
 ```
+
 
 # sed - subtitude
 ``` bash
@@ -360,7 +394,10 @@ else
 fi
 ```
 
+
 # Debugging
-- `bash -x ./yourScript.sh` shows executing lines by lines
-- add -x to the shebang `#! /bin/bash -x`
-- `set -x` and `set +x` to pinpoint codeblock to debug
+`bash -x ./yourScript.sh` shows executing lines by lines
+
+add -x to the shebang `#! /bin/bash -x`
+
+`set -x` and `set +x` to pinpoint codeblock to debug
