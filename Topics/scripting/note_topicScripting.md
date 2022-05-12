@@ -1,4 +1,4 @@
-# Topics
+# Topics to cover
 - external command
 - keep files safe from overwriting: noclobber
 - exit status: 0 and 1-255
