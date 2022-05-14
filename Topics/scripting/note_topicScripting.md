@@ -1,3 +1,33 @@
+# Covered
+- wc
+- sort
+- uniq
+- Variables expansion:
+	- tilty ~
+	- dollar sign
+	- path name
+	- curly braces
+- diff
+- find
+- grep
+- du
+- df
+- history
+- ps
+- top / htop
+- kill
+- jobs / bg / fg
+- sleep
+- gzip / tar
+- alias
+- xargs
+- ln
+- who
+- su
+- passwd
+- chown / chmod
+- Files/dirs permissions
+
 # Topics to cover
 - external command
 - keep files safe from overwriting: noclobber
@@ -11,6 +41,8 @@
 - debugging: set
 - bash_history maximum size
 - quit/exit out of selection scope
+
+---
 
 # wc - words count
 lines	words	bytes
