@@ -116,7 +116,11 @@ SELECT title FROM favorites WHERE title LIKE "%office%";
 - sqlite3 (iPhone or Andoir is available too), mySQL, postregSQL
 - !! no undo
 ``` SQL
-SELECT DISTINCT(title) FROM shows WHERE id IN (SELECT show_id FROM genres WHERE genre = "Comedy") ORDER BY title;
+SELECT DISTINCT(title) FROM shows
+ WHERE id IN (
+		  SELECT show_id FROM genres
+		   WHERE genre = "Comedy")
+ ORDER BY title;
 ```
 	- start small, and slowly adding into your "command" to ultimately solve your problem
 
