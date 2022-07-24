@@ -1,0 +1,49 @@
+Docker
+	docker ps
+	containers
+	loading balancing best practices
+
+Jenkins
+	/safeRestart
+
+QoS
+	techniques: scheduling, traffic shaping, admisison control, resource reservation
+MPLS - multiprotocol lable switching
+ARP - address resolution protocol
+Ethernet
+	STP - spanning tree protocol
+	ring protection switching
+	RSTP - rapid spanning tree protocol
+	storm protection, broadcast storm
+	VLAN IDs, encapsulation, layers, levels 0-7 ?
+	Service OAM
+OSPF - Open Shortest Path First
+
+	IP
+	UDP
+	TCP 3 way handshak
+		Client			Server
+	--> SYN=1 SEQ=x
+	<-- SYN=1 SEQ=y		ACK=1 Pack=x+1
+	--> ACK=1			Pack=y+1
+
+
+SCRUM
+
+Software testing
+	black-box vs white-box
+	stubs and drivers
+	boundary value tests
+	unit testing
+	regression testing
+	integration testing
+	re-testing
+	system testing
+	acceptence testing
+	scrum-testing
+	verdict: inconclusive, etc.
+	branch-wise
+
+DevOps
+	CI - continuous integration
+	CD - continuous delivery
