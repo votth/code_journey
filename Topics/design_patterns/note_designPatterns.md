@@ -1,3 +1,4 @@
+
 General repeatable solution to a commonly occuring problem in software design.
 - give the Dev a selection of tried and tested solutions to work with
 - language neutral and so can be applied to any that supports OOP
