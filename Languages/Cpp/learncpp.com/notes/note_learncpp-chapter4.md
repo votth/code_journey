@@ -198,6 +198,148 @@ It is defined as an unsigned integral type, and is typically used to represent t
 
 
 # 4.7 Introduction to scientific notation
-https://www.learncpp.com/cpp-tutorial/introduction-to-scientific-notation/
+**Scientific notation** is a useful shorthand for writing lengthy numbers in a concise manner. Knowing this will help in understanding how floating point numbers work, and what their limitations are.
+
+Form: *significand* x 10^exponent; eg. 1.2 x 10^4 = 12,000.  
+By convention, numbers in scientific notation are written with one digit before the decimal point, and the rest of the digits afterwrad.
+
+Beside making it easier to read, scietific notation also helps to compare the magnitude of two really big or really small numbers simply by comparing the exponent.
+
+In C++, the letter *e* is used to represent the 10^x exponent, eg: 1.2e4. For numbers smaller than 1, exponent can be negative.
+
+## How to convert numbers to scientific notation
+- Exponent start at zero.
+- Slide the decimal so there is only one non-zero digit to the left of the decimal.
+	- Each place you slide the decimal to the left increases the exponent by 1.
+	- And to the right decreases it by 1.
+- Trim off any leading zeros (on the left of the significand).
+- Trim off any trailing zeros (on the right end) only if the original number had no decimal point, that is to retain the number precision.
+
+## Precision and trailing zeros after the decimal
+Weighting the same apple and got 87 vs 87.00.  
+Range of variability for the former is 86.50-87.49, while the later is only 86.9950-87.0049.
+
+In C++, the two are considered the same and will be stored as such.
+
 
 # 4.8 Floating point numbers
+Integers are great for counting whole numbers, but sometimes we need to store *very* large numbers, or numbers with fractional component. A **floating point** type variable is a variable that can hold real number. The *floating* part of the name referes to the fact that the decimal point can "float"; that is, it can support a variable number of digits before and after the decimal point.
+
+There are three different floating point data types: **float**, **double**, and **long double**. As with integers, C++ does not define the actual size of these types (but it does guarantee minimum sizes).  
+On modern architectures, floating point representation almost always follows IEEE 754 binary format: a float is 4 bytes, a double is 8, and a long double can be equivalent to a double (8 bytes), 80-bits (often padded to 12 bytes), or 16 bytes.
+
+Floating point data types are always signed.
+
+``` cpp
+float fValue;
+double dValue;
+long double ldValue;
+```
+
+When using floating point literals, always include at least one decimal place (even if the decimal is 0). This helps the compiler understand that the number is a floating point number and not an integer.
+``` cpp
+int x{5};		// 5 means integer
+double y{5.0};	// 5.0 is a floating point literal, no suffix mean double type by default
+float z{5.0f};	// 5.0 is a floating point literal, f suffix means float type
+```
+Note that by default, floating point literals default to type double. An f suffix is used to denote a literal of type float.
+
+!! Always make sure the type of your literals match the type of the variables they're being assigned to or used to initialize. Otherwise an unnecessary conversion will result, possibly with a loss of precision.
+!! Make sure you don't use integer literals where floating point should be used. This includes when initializing or assigning values to floating point objects, doing floating point arithmetic, and calling functions that expect floating point values.
+
+## Printing floating point numbers
+``` cpp
+#include <iostream>
+
+int main() {
+	std::cout << 5.0 << "\n";
+	std::cout << 6.7f << "\n";
+	std::cout << 9876453.21 << "\n";
+
+	return 0;
+}
+
+// Output
+// 5	std::cout ignores the 0 fractional
+// 6.7	std::cout prints as we expected
+// 9.87654321e+06	prints in scientific notation
+```
+
+## Floating point range
+Assuming IEEE 754 representation:
+Size		Range							Precision  
+4 bytes		+-1.18e-38 to +- 3.4e38		6-9 significant digits, 7  
+8 bytes		+-2.23e-308 to +- 1.80e308		15-18, typically 16  
+80-bits		+-3.36e-4932 to +- 1.18e4932	18-21 digits  
+16 bytes	+-3.36e-4932 to +- 1.18e4932	33-36 digits  
+
+The 80-bit floating point type is a bit of a historical anomaly. On modern processors, it is typically implemented using 12 or 16 bytes, which is more natural size for processors to handle.  
+And the 80-bit has the same range as the 16-bytes because they have the same number of bits dedicated to the exponent; however, the 16-byte number can store more significant digits.
+
+## Floating point precision
+On a computer, an infinite length number (0.3333...) would require infinite memory to store, and typically we only have 4 or 8 bytes. This limited memory means floating point numbers can only store a certain number of significant digits, and any additional significant digits are lost. The number that is actually stored will be close to the desired number, but not exact.
+
+The **precision** of a floating point number defines how many *significant digits* can represent without information loss.
+
+std::cout has a default precision of 6 and will truncate anything after that.
+``` cpp
+#include <iostream>
+
+int main() {
+	std::cout << 9.87654321f << "\n";
+	std::cout << 987.654321f << "\n";
+	std::cout << 987654.321f << "\n";
+	std::cout << 9876543.21f << "\n";
+	std::cout << 0.0000987654321 << "\n";
+
+	return 0;
+}
+
+// Output
+// 9.87654
+// 987.654
+// 987654
+// 9.87654e+006
+// 9.87654e-005
+```
+The number of digits of precision a floating point variable has depends on both the size and the particular value being stored.
+
+We can override the default precision that std::cout shows by using `output manipulator` (head *<iomanip>*) function named `std::setprecision()`.
+``` cpp
+// compare these std::cout
+std::cout << std::setprecision(16);	// show 16 digits of precision
+std::cout << 3.333333333333333333333333333f << "\n";	// float
+std::cout << 3.333333333333333333333333333  << "\n";	// double
+
+float f { 123456789.0f };
+std::cout << std::setprecision(9);
+std::cout << f << "\n";
+
+// Output
+// 3.333333253860474
+// 3.333333333333334
+// 1234567892
+```
+When precision is lost because a number can't be stored precisely, this is called a **rounding error**.
+
+!! Favor double over float unless space is at a premium, as the lack of precision in a float will often lead to inaccuracies.
+
+## Rounding errors make floating point comparisions tricky
+``` cpp
+#include <iomanip>
+#include <iostream>
+
+int main() {
+	double d{0.1};
+	std::cout << d << '\n';	//default precision of 6
+	std::cout << std::setprecision(17);
+	std::cout << d << '\n';
+
+	return 0;
+}
+
+// Output
+// 0.1
+// 0.10000000000000001
+```
+The double has to truncate the approximation due to its limited memory. The result is a number that is precise to 16 siginificant digits (which type double agrees), but the number is not *exactly* 0.1.
