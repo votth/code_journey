@@ -58,7 +58,7 @@ Be careful when 'showing the block', the pieces should:
 - '2' block to be centered
 - shown their block rows one by one
 
-![Good and Wrong initial position](./wrong_and_good_tetris_positions.png)
+![Good and Wrong initial position](./media/wrong_and_good_tetris_positions.png)
 
 This translation requires two numbers, for horizontal and vertical. These will be in `Game();` class when creating the piece.  
 The array that stores these displacements:  
