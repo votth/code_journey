@@ -5,7 +5,7 @@
 ## Linux Platform
 
 Installing **libsdl-gfx1.2-dev** and **libsdl1.2-dev**:  
-`$ sudo pacman -S sdl2 sdl2_gfx sdl2-compat sdl_ttf sdl2_ttf`  
+`$ sudo pacman -S sdl2 sdl2_gfx sdl12-compat sdl_ttf sdl2_ttf`  
 - *compat* - SDL 1.2 runtime compatibility lib using SDL 2.0  
 - *ttf*    - using TrueType fonts in SDL applications
 
